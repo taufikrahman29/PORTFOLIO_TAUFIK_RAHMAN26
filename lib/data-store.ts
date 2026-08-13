@@ -50,7 +50,7 @@ export const initialProjects: Project[] = [
     slug: 'internal-audit-analyst-system',
     short_description: 'Sistem aplikasi enterprise untuk manajemen audit internal, penugasan auditor, matriks risiko, dan dashboard pelaporan real-time.',
     full_description: 'Aplikasi web kelas enterprise yang dirancang khusus untuk mempermudah manajemen audit internal perusahaan. Dilengkapi fitur manajemen penugasan auditor, penilaian skor risiko, tracking temuan audit, approval workflow, serta dashboard statistik executive.',
-    thumbnail_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
+    thumbnail_url: '/uploads/projects/projects-1786653356374.png',
     category: 'Web Application',
     technologies: ['Laravel', 'React', 'Tailwind CSS', 'MySQL', 'REST API'],
     project_year: '2024',
@@ -60,67 +60,75 @@ export const initialProjects: Project[] = [
     published: true,
     display_order: 1,
     gallery_images: [
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=1000'
+      '/uploads/projects/projects-1786653356374.png',
+      '/uploads/projects/projects-1786653518124.png',
+      '/uploads/projects/projects-1786653524873.png',
+      '/uploads/projects/projects-1786653524895.png'
     ]
   },
   {
     id: 'proj-2',
-    title: 'Enterprise E-Commerce & Inventory Hub',
-    slug: 'enterprise-ecommerce-inventory-hub',
-    short_description: 'Platform toko online modern dengan integrasi inventaris stok real-time, cart checkout, dan payment gateway.',
-    full_description: 'Solusi E-Commerce full stack dengan Next.js App Router & Supabase. Memiliki antarmuka belanja berkecepatan tinggi, integrasi manajemen produk otomatis, stok real-time, invoice generator, dan panel dashboard admin lengkap.',
-    thumbnail_url: 'https://images.unsplash.com/photo-1556742049-0a67dd486e92?auto=format&fit=crop&q=80&w=1000',
+    title: 'Sistem Absensi & Operasional Web Polsek Cikancung',
+    slug: 'sistem-absensi-polsek-cikancung',
+    short_description: 'Sistem absensi berbasis web, database, backend, frontend, serta pengujian performa sistem untuk Polsek Cikancung.',
+    full_description: 'Aplikasi web internal untuk mengelola kehadiran anggota, rekap absensi harian, database personel, serta dashboard pelaporan yang terstruktur dan responsif.',
+    thumbnail_url: '/uploads/projects/projects-1786653749689.png',
     category: 'Full Stack',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Stripe'],
+    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
     project_year: '2024',
-    live_url: 'https://shop.taufikrahman.dev',
-    github_url: 'https://github.com/taufikrahman29/next-ecommerce',
+    live_url: 'https://cikancung.taufikrahman.dev',
+    github_url: 'https://github.com/taufikrahman29/absensi-cikancung',
     is_featured: true,
     published: true,
     display_order: 2,
     gallery_images: [
-      'https://images.unsplash.com/photo-1556742049-0a67dd486e92?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=1000'
+      '/uploads/projects/projects-1786653749689.png',
+      '/uploads/projects/projects-1786653756056.png',
+      '/uploads/projects/projects-1786653756074.png',
+      '/uploads/projects/projects-1786653756090.png',
+      '/uploads/projects/projects-1786653756109.png'
     ]
   },
   {
     id: 'proj-3',
-    title: 'Smart HR & Geofencing Attendance Portal',
-    slug: 'smart-hr-geofencing-attendance',
-    short_description: 'Portal manajemen SDM dengan fitur presensi geofencing lokasi, pengajuan cuti, dan kalkulasi KPI karyawan.',
-    full_description: 'Aplikasi pengelolaan sumber daya manusia (HRIS) modern. Memungkinkan presensi mandiri karyawan berbasis GPS lokasi, pengajuan izin digital, rekap otomatis jam kerja, serta laporan performa KPI berkala.',
-    thumbnail_url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000',
+    title: 'Management Fasilitas & Digital Solution Lapas Kelas IIA Bekasi',
+    slug: 'digital-solution-lapas-bekasi',
+    short_description: 'Pengembangan sistem web, dashboard, database, dan solusi digital pendukung operasional pelayanan publik.',
+    full_description: 'Solusi digital terintegrasi untuk mendukung pengelolaan fasilitas umum, dashboard statistik operasional, dan efisiensi pelayanan di Lapas Kelas IIA Bekasi (Predikat Sangat Baik).',
+    thumbnail_url: '/uploads/projects/projects-1786653809040.png',
     category: 'Web Application',
-    technologies: ['React', 'Laravel', 'Tailwind CSS', 'PostgreSQL'],
-    project_year: '2023',
-    live_url: 'https://hris.taufikrahman.dev',
-    github_url: 'https://github.com/taufikrahman29/smart-hris',
+    technologies: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
+    project_year: '2026',
+    live_url: 'https://lapasbekasi.taufikrahman.dev',
+    github_url: 'https://github.com/taufikrahman29/lapas-bekasi-app',
     is_featured: true,
     published: true,
     display_order: 3,
     gallery_images: [
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000'
+      '/uploads/projects/projects-1786653809040.png',
+      '/uploads/projects/projects-1786653524873.png',
+      '/uploads/projects/projects-1786653524895.png'
     ]
   },
   {
     id: 'proj-4',
-    title: 'Cybersecurity Threat & Incident Monitor',
+    title: 'Cybersecurity Threat & Digital Forensics Incident Monitor',
     slug: 'cybersecurity-threat-incident-monitor',
-    short_description: 'Dashboard pemantauan insiden siber, threat intelligence feed, dan visualisasi skor kerentanan IT.',
-    full_description: 'Platform analitik keamanan siber untuk memantau log aktivitas yang mencurigakan, integrasi scoring CVE, deteksi kerentanan, dan mitigasi risiko insiden secara terorganisir.',
-    thumbnail_url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1000',
-    category: 'Web Application',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Chart.js', 'Python API'],
-    project_year: '2023',
+    short_description: 'Dashboard pemantauan insiden siber, threat intelligence feed, analisis bukti forensik digital, dan visualisasi skor kerentanan.',
+    full_description: 'Platform analitik keamanan siber untuk memantau log aktivitas suspicious, integrasi scoring CVE, deteksi kerentanan, dan mitigasi risiko insiden siber.',
+    thumbnail_url: '/uploads/projects/projects-1786653518124.png',
+    category: 'Cybersecurity',
+    technologies: ['FTK', 'Autopsy', 'Wireshark', 'Next.js', 'Python API'],
+    project_year: '2025',
     live_url: 'https://cybersec.taufikrahman.dev',
     github_url: 'https://github.com/taufikrahman29/cyber-monitor',
     is_featured: false,
     published: true,
     display_order: 4,
     gallery_images: [
-      'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1000'
+      '/uploads/projects/projects-1786653518124.png',
+      '/uploads/projects/projects-1786653356374.png',
+      '/uploads/projects/projects-1786653524873.png'
     ]
   }
 ];
