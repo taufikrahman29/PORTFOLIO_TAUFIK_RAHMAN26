@@ -15,23 +15,30 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Target upload directory: public/uploads/[folder]
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', folder);
-    await mkdir(uploadDir, { recursive: true });
+    try {
+      // 1. Try local filesystem upload (works on localhost)
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', folder);
+      await mkdir(uploadDir, { recursive: true });
 
-    // Generate unique physical file name
-    const fileExt = file.name.split('.').pop() || 'png';
-    const fileName = `${folder}-${Date.now()}.${fileExt}`;
-    const filePath = path.join(uploadDir, fileName);
+      const fileExt = file.name.split('.').pop() || 'png';
+      const fileName = `${folder}-${Date.now()}.${fileExt}`;
+      const filePath = path.join(uploadDir, fileName);
 
-    // Write file directly to local filesystem
-    await writeFile(filePath, buffer);
+      await writeFile(filePath, buffer);
+      const publicUrl = `/uploads/${folder}/${fileName}`;
 
-    const publicUrl = `/uploads/${folder}/${fileName}`;
+      return NextResponse.json({ url: publicUrl, fileName }, { status: 200 });
+    } catch (fsErr) {
+      // 2. Serverless fallback for Vercel read-only filesystem
+      console.warn('Local filesystem read-only (Vercel serverless environment), returning Base64 Data URL fallback');
+      const base64Data = buffer.toString('base64');
+      const mimeType = file.type || 'image/jpeg';
+      const dataUrl = `data:${mimeType};base64,${base64Data}`;
 
-    return NextResponse.json({ url: publicUrl, fileName }, { status: 200 });
+      return NextResponse.json({ url: dataUrl, fileName: file.name }, { status: 200 });
+    }
   } catch (error) {
     console.error('File upload error:', error);
-    return NextResponse.json({ error: 'Gagal mengunggah file ke direktori' }, { status: 500 });
+    return NextResponse.json({ error: 'Gagal mengunggah file' }, { status: 500 });
   }
 }
