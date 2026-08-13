@@ -5,7 +5,7 @@ import { createClient } from './supabase/client';
 export const initialProfile: Profile = {
   id: 'profile-1',
   name: 'Taufik Rahman',
-  avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+  avatar_url: '/uploads/profile/profile-1786653200885.png',
   headline: 'Full Stack Web Developer & Information Systems Graduate',
   bio: 'Lulusan Sistem Informasi & Full Stack Developer yang berfokus pada pembuatan aplikasi web enterprise modern, scalable, responsif, dan aman menggunakan Next.js, TypeScript, Laravel, dan Tailwind CSS.',
   email: 'taufikrahman.dev@gmail.com',
@@ -406,7 +406,7 @@ export const initialTestimonials: Testimonial[] = [
     name: 'Direksi Tim IT Enterprise',
     role: 'Lead Architect & Senior Engineer',
     company: 'Enterprise Software Partner',
-    avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
+    avatar_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
     content: 'Taufik Rahman merupakan Full Stack Developer yang sangat handal di Next.js, Laravel, dan Tailwind. Eksekusi UI/UX-nya sangat halus dan arsitektur kodenya bersih serta mudah dikembangkan.',
     rating: 5,
     display_order: 4
@@ -425,7 +425,7 @@ export const initialSettings: SiteSettings = {
   site_title: 'Taufik Rahman - Full Stack Developer Portfolio',
   meta_description: 'Portfolio profesional Taufik Rahman, Full Stack Web Developer & Information Systems Graduate.',
   meta_keywords: 'Taufik Rahman, Portfolio, Full Stack Developer, Next.js, React, Laravel, Tailwind CSS, Developer Indonesia',
-  og_image_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+  og_image_url: '/uploads/profile/profile-1786653200885.png',
 };
 
 // UNIFIED STORE WITH STRICT ATOMIC PARTIAL UPDATES & CACHE REVALIDATION

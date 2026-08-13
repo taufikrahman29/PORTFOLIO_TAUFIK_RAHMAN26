@@ -156,7 +156,7 @@ export function Hero({ profile, socials }: HeroProps) {
             <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-border/80 bg-card shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={profile.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'}
+                src={profile.avatar_url || '/uploads/profile/profile-1786653200885.png'}
                 alt={profile.name}
                 className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
                   isColor
