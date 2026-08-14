@@ -6,26 +6,26 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- 1. PROFILES TABLE
+-- 1. PROFILES TABLE (TEXT PRIMARY KEY for flexible string/UUID IDs)
 CREATE TABLE IF NOT EXISTS public.profiles (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     name TEXT NOT NULL DEFAULT 'Taufik Rahman',
     avatar_url TEXT DEFAULT '',
     headline TEXT DEFAULT 'Full Stack Web Developer & Information Systems Graduate',
-    bio TEXT DEFAULT 'Passionate Full Stack Developer with expertise in building scalable, modern web applications, clean UI/UX designs, and secure IT infrastructures.',
+    bio TEXT DEFAULT 'Lulusan Sistem Informasi & Full Stack Developer yang berfokus pada pembuatan aplikasi web enterprise modern.',
     email TEXT DEFAULT 'taufikrahman.dev@gmail.com',
     whatsapp TEXT DEFAULT '+6281234567890',
     location TEXT DEFAULT 'Indonesia',
     availability_status TEXT DEFAULT 'Available for Work',
     cv_url TEXT DEFAULT '#',
-    roles TEXT[] DEFAULT ARRAY['Full Stack Web Developer', 'Information Systems Graduate', 'Web Developer', 'IT & Cybersecurity Enthusiast'],
+    roles TEXT[] DEFAULT ARRAY['Full Stack Web Developer', 'Information Systems Graduate'],
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- 2. PROJECTS TABLE
 CREATE TABLE IF NOT EXISTS public.projects (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     title TEXT NOT NULL,
     slug TEXT UNIQUE NOT NULL,
     short_description TEXT NOT NULL,
@@ -39,14 +39,15 @@ CREATE TABLE IF NOT EXISTS public.projects (
     is_featured BOOLEAN DEFAULT FALSE,
     published BOOLEAN DEFAULT TRUE,
     display_order INT DEFAULT 0,
+    gallery_images TEXT[] DEFAULT ARRAY[]::TEXT[],
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- 3. PROJECT IMAGES GALLERY TABLE
 CREATE TABLE IF NOT EXISTS public.project_images (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    project_id UUID REFERENCES public.projects(id) ON DELETE CASCADE,
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
+    project_id TEXT REFERENCES public.projects(id) ON DELETE CASCADE,
     image_url TEXT NOT NULL,
     display_order INT DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS public.project_images (
 
 -- 4. SKILLS TABLE
 CREATE TABLE IF NOT EXISTS public.skills (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     name TEXT NOT NULL,
     category TEXT NOT NULL DEFAULT 'Frontend',
     level INT DEFAULT 85,
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS public.skills (
 
 -- 5. EXPERIENCES TABLE
 CREATE TABLE IF NOT EXISTS public.experiences (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     position TEXT NOT NULL,
     company TEXT NOT NULL,
     period TEXT NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS public.experiences (
 
 -- 6. EDUCATIONS TABLE
 CREATE TABLE IF NOT EXISTS public.educations (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     university TEXT NOT NULL,
     major TEXT NOT NULL,
     year TEXT NOT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS public.educations (
 
 -- 7. CERTIFICATES TABLE
 CREATE TABLE IF NOT EXISTS public.certificates (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     title TEXT NOT NULL,
     issuer TEXT NOT NULL,
     year TEXT NOT NULL,
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS public.certificates (
 
 -- 8. SERVICES TABLE
 CREATE TABLE IF NOT EXISTS public.services (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     icon TEXT DEFAULT 'Layout',
@@ -115,9 +116,23 @@ CREATE TABLE IF NOT EXISTS public.services (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 9. SOCIAL LINKS TABLE
+-- 9. TESTIMONIALS TABLE
+CREATE TABLE IF NOT EXISTS public.testimonials (
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
+    name TEXT NOT NULL,
+    role TEXT DEFAULT '',
+    company TEXT DEFAULT '',
+    avatar_url TEXT DEFAULT '',
+    content TEXT NOT NULL,
+    rating INT DEFAULT 5,
+    display_order INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 10. SOCIAL LINKS TABLE
 CREATE TABLE IF NOT EXISTS public.social_links (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     platform TEXT NOT NULL,
     url TEXT NOT NULL,
     icon TEXT DEFAULT 'Globe',
@@ -127,9 +142,9 @@ CREATE TABLE IF NOT EXISTS public.social_links (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 10. MESSAGES TABLE
+-- 11. MESSAGES TABLE
 CREATE TABLE IF NOT EXISTS public.messages (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     whatsapp TEXT DEFAULT '',
@@ -139,9 +154,9 @@ CREATE TABLE IF NOT EXISTS public.messages (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 11. SITE SETTINGS TABLE
+-- 12. SITE SETTINGS TABLE
 CREATE TABLE IF NOT EXISTS public.site_settings (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4()::text,
     primary_color TEXT DEFAULT 'violet',
     accent_color TEXT DEFAULT 'cyan',
     background_theme TEXT DEFAULT 'dark',
@@ -152,85 +167,25 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
     button_style TEXT DEFAULT 'rounded-full',
     site_title TEXT DEFAULT 'Taufik Rahman - Full Stack Developer Portfolio',
     meta_description TEXT DEFAULT 'Portfolio profesional Taufik Rahman, Full Stack Web Developer & Information Systems Graduate.',
-    meta_keywords TEXT DEFAULT 'Taufik Rahman, Portfolio, Full Stack Developer, Next.js, React, Laravel, Tailwind CSS, Developer Indonesia',
+    meta_keywords TEXT DEFAULT 'Taufik Rahman, Portfolio, Full Stack Developer',
     og_image_url TEXT DEFAULT '',
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- ==========================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
+-- Disable or Allow Full Access for Seamless Admin Operations
 -- ==========================================
 
-ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.project_images ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.experiences ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.educations ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.certificates ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.services ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.social_links ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
-
--- PUBLIC READ POLICIES (Everyone can read published/active data)
-CREATE POLICY "Public Read Profiles" ON public.profiles FOR SELECT USING (true);
-CREATE POLICY "Public Read Projects" ON public.projects FOR SELECT USING (published = true);
-CREATE POLICY "Public Read Project Images" ON public.project_images FOR SELECT USING (true);
-CREATE POLICY "Public Read Skills" ON public.skills FOR SELECT USING (true);
-CREATE POLICY "Public Read Experiences" ON public.experiences FOR SELECT USING (true);
-CREATE POLICY "Public Read Educations" ON public.educations FOR SELECT USING (true);
-CREATE POLICY "Public Read Certificates" ON public.certificates FOR SELECT USING (true);
-CREATE POLICY "Public Read Services" ON public.services FOR SELECT USING (true);
-CREATE POLICY "Public Read Social Links" ON public.social_links FOR SELECT USING (is_active = true);
-CREATE POLICY "Public Read Settings" ON public.site_settings FOR SELECT USING (true);
-
--- PUBLIC INSERT POLICY FOR CONTACT MESSAGES
-CREATE POLICY "Public Insert Messages" ON public.messages FOR INSERT WITH CHECK (true);
-
--- AUTHENTICATED ADMIN FULL ACCESS (ALL OPERATIONS)
-CREATE POLICY "Admin All Profiles" ON public.profiles FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Projects" ON public.projects FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Project Images" ON public.project_images FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Skills" ON public.skills FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Experiences" ON public.experiences FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Educations" ON public.educations FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Certificates" ON public.certificates FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Services" ON public.services FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Social Links" ON public.social_links FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Messages" ON public.messages FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin All Settings" ON public.site_settings FOR ALL USING (auth.role() = 'authenticated');
-
--- ==========================================
--- STORAGE BUCKETS SETUP
--- ==========================================
-
-INSERT INTO storage.buckets (id, name, public) VALUES ('profile', 'profile', true) ON CONFLICT (id) DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('projects', 'projects', true) ON CONFLICT (id) DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('certificates', 'certificates', true) ON CONFLICT (id) DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('site-assets', 'site-assets', true) ON CONFLICT (id) DO NOTHING;
-
-CREATE POLICY "Public Bucket Storage Read" ON storage.objects FOR SELECT USING (bucket_id IN ('profile', 'projects', 'certificates', 'site-assets'));
-CREATE POLICY "Admin Bucket Storage Insert" ON storage.objects FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Admin Bucket Storage Update" ON storage.objects FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin Bucket Storage Delete" ON storage.objects FOR DELETE USING (auth.role() = 'authenticated');
-
--- ==========================================
--- INITIAL SEED DATA
--- ==========================================
-
-INSERT INTO public.profiles (name, headline, bio, email, whatsapp, location, availability_status, roles)
-VALUES (
-    'Taufik Rahman',
-    'Full Stack Web Developer & Information Systems Graduate',
-    'Passionate Full Stack Web Developer with a strong foundation in Information Systems, modern frontend framework engineering, enterprise backend architectures, and cybersecurity best practices.',
-    'taufikrahman.dev@gmail.com',
-    '+6281234567890',
-    'Indonesia',
-    'Available for Work',
-    ARRAY['Full Stack Web Developer', 'Information Systems Graduate', 'Web Developer', 'IT & Cybersecurity Enthusiast']
-) ON CONFLICT DO NOTHING;
-
-INSERT INTO public.site_settings (primary_color, accent_color, site_title)
-VALUES ('violet', 'cyan', 'Taufik Rahman - Professional Developer Portfolio')
-ON CONFLICT DO NOTHING;
+ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.projects DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.project_images DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.skills DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.experiences DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.educations DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.certificates DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.services DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.testimonials DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.social_links DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.messages DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.site_settings DISABLE ROW LEVEL SECURITY;
